@@ -16,9 +16,24 @@ public class RentACatImpl implements RentACat {
 	 * @param id the ID of the cat to rent
 	 * @return true if cat exists and was rented out, false otherwise
 	 */
-
+	// RAINIER
 	public boolean returnCat(int id) {
-		// TODO
+		
+		// null / zero-element check
+		if (cats == null || cats.size() == 0)
+		{
+			return false;
+		}
+		
+		for (Cat c : cats)
+		{
+			if (c.getId() == id)
+			{
+				c.returnCat();
+				return true;
+			}
+		}
+		
 		return false;
 	}
 
@@ -31,10 +46,24 @@ public class RentACatImpl implements RentACat {
 	 * @param id the ID of the cat to rent
 	 * @return true if cat exists and was not rented out, false otherwise
 	 */
-
+	// SPENCER
 	public boolean rentCat(int id) {
-		// TODO
-		return false;
+		Boolean rentable = false;
+
+		// null / zero-element check
+		if (cats == null || cats.size() == 0)
+		{
+			return rentable;
+		}
+
+		if(catExists(id) && catAvailable(id))
+		{
+			Cat cat = getCat(id);
+			cat.rentCat();
+			rentable = true;
+		}
+		
+		return rentable;
 	}
 
 	/**
@@ -46,10 +75,28 @@ public class RentACatImpl implements RentACat {
 	 * 
 	 * @return "\n"-delimited list of rentable cats
 	 */
-
+	// SPENCER
 	public String listCats() {
-		// TODO
-		return "WRITE CODE FOR THIS";
+
+		// Final catList that will be added
+		String catList = "";
+
+		// null / zero-element check
+		if (cats == null || cats.size() == 0)
+		{
+			return catList;
+		}
+
+		// Loop through every cat in the cat arr list
+		for (Cat c : cats) {
+			// if the current cat (found using get ID) is not rented, concat to the existing list
+			if (catAvailable(c.getId())) {
+				catList = catList + "ID " + c.getId() + ". " + c.getName() + "\n";
+			}
+		}
+
+
+		return catList;
 	}
 
 	/**
@@ -60,9 +107,26 @@ public class RentACatImpl implements RentACat {
 	 * @param id ID of cat to search for
 	 * @return true if cat exists in list, false otherwise
 	 */
-
+	// RAINIER
 	public boolean catExists(int id) {
-		// TODO
+
+		// null / zero-element check
+		if (cats == null || cats.size() == 0)
+		{
+			return false;
+		}
+		
+		// Loop through every cat in the cat list
+		for (Cat c : cats)
+		{
+			// if current cat shares the passed in ID, return true
+			if (c.getId() == id)
+			{
+				return true;
+			}
+		}
+
+
 		return false;
 	}
 
